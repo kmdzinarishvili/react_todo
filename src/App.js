@@ -68,7 +68,7 @@ useEffect(()=>{
     return (currCount);
   });
   let percentages = values.map((v)=>{
-    if(total!=0)
+    if(total!==0)
     {
       return v/total;
     }
@@ -107,7 +107,7 @@ useEffect(()=>{
   }
 
   const addItem = () => {
-    if (assignedTo!=0 &&dueDate!=""&&taskName!=""){
+    if (assignedTo!==0 &&dueDate!==""&&taskName!==""){
     setState(prev => {
       return {
         ...prev,
