@@ -1,12 +1,25 @@
 * {
   box-sizing: border-box;
+  font:Monospace;
+}
+.title{
+  font-size:50px;
 }
 
-
+.input{
+  height:100px;
+}
 .progressBar{
   width:100px;
   height:10px;
-  background-color: black;
+  background-color: #000000;
+}
+
+
+.progress-bar{
+  border: 5px dashed black;
+  padding:20px;
+  margin: 10px 0;
 }
 
 .App {
@@ -16,19 +29,30 @@
 }
 
 .App .column {
-  width: 30%;
+  width: 25%;
 }
 
 .input{
   width: 25%;
 
+
 }
 .save-btn{
   width:100%;
+
+    background-color:purple; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 40px;
+
 }
 .droppable-col {
   width: 100%;
-  background-color: gray;
+  background-color: #b19cd9;
   padding: 10px 10px 0 10px;
   border-radius: 7px;
   display: flex;
@@ -37,19 +61,20 @@
 
 .item {
   margin-bottom: 10px;
-  background-color: gray;
+  background-color: darkblue;
   color: white;
   border: 1px solid white;
   padding: 5px;
   border-radius: 7px;
+
 }
 
 .item.dragging {
-  background-color: coral;
+  background-color: darkcyan;
 }
 
 .blue{
-  color:blue;
+  color:white;
 }
 .red{
   color:red;
