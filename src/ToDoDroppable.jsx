@@ -2,7 +2,7 @@ import {Droppable} from "react-beautiful-dnd";
 import ToDoDraggable from "./ToDoDraggable";
 
 
-const ToDoDroppable = ({droppableId, data}) =>{
+const ToDoDroppable = ({droppableId, data, date}) =>{
 
 
 return (<Droppable key={droppableId} droppableId={droppableId}>
@@ -15,7 +15,7 @@ return (<Droppable key={droppableId} droppableId={droppableId}>
                     >
                       {data.items.map((el, index) => {
                         return(
-                         <ToDoDraggable key={index} el = {el} index ={index}></ToDoDraggable>
+                         <ToDoDraggable date= {date} key={index} el = {el} index ={index}></ToDoDraggable>
                         )
                       })}
                       {provided.placeholder}

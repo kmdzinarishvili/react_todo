@@ -51,22 +51,14 @@ const handleComment =(comment)=>{
     setComment(comment.target.value);
 }
 
-// useEffect(() => {
-//     // var UserDate = document.getElementById("userdate").value;
-//     // var ToDate = new Date();
-      
-//     // if (new Date(UserDate).getTime() <= ToDate.getTime()) {
-//     //     alert("The Date must be Bigger or Equal to today date");
-//     //     return false;
-//     // }
-//     // return true;
-//     var timerID = setInterval( () =>     setDate(new Date()), 1000 );
-//     console.log(date);
-//   return function cleanup() {
-//       clearInterval(timerID);
-//     };
+useEffect(() => {
+
+    var timerID = setInterval( () =>     setDate(new Date()), 1000 );
+    return function cleanup() {
+      clearInterval(timerID);
+    };
   
-// }, );
+}, );
 
 useEffect(()=>{
   let total = 0;
@@ -115,6 +107,7 @@ useEffect(()=>{
   }
 
   const addItem = () => {
+    if (assignedTo!=0 &&dueDate!=""&&taskName!=""){
     setState(prev => {
       return {
         ...prev,
@@ -139,6 +132,7 @@ useEffect(()=>{
     setAssignedTo("");
     setComment("");
   }
+  }
 
   return (
     <>
@@ -156,7 +150,7 @@ useEffect(()=>{
           return(
             <div key={key} className={"column"}>
               <h3>{data.title}</h3>
-              <ToDoDroppable key={key} droppableId={key} data={data}></ToDoDroppable>
+              <ToDoDroppable date={date} key={key} droppableId={key} data={data}></ToDoDroppable>
             </div>
           )
         })}

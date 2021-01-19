@@ -2,6 +2,7 @@
   box-sizing: border-box;
 }
 
+
 .progressBar{
   width:100px;
   height:10px;
@@ -45,4 +46,11 @@
 
 .item.dragging {
   background-color: coral;
+}
+
+.blue{
+  color:blue;
+}
+.red{
+  color:red;
 }
