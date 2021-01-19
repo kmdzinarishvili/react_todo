@@ -1,26 +1,42 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './App.css';
-import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
+import {DragDropContext} from "react-beautiful-dnd";
 import _ from "lodash";
 import {v4} from "uuid";
 import ToDoDroppable from './ToDoDroppable';
 import Input from "./Input";
 
-// const item = {
-//   id: v4(),
-//   name: "Clean the house"
-// }
-
-// const item2 = {
-//   id: v4(),
-//   name: "Wash the car"
-// }
-
 function App() {
-  const [taskName, setTaskName] = useState();
-  const [dueDate, setDueDate] = useState();
-  const [assignedTo, setAssignedTo]= useState();
-  const [comment, setComment]= useState();
+  const [taskName, setTaskName] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [assignedTo, setAssignedTo]= useState("");
+  const [comment, setComment]= useState("");
+  const [date, setDate]= useState("");
+  const [percents, setPercents] = useState(
+[0,0,0,0]
+  );
+
+  const [state, setState] = useState({
+    "backlog": {
+      title: "Backlog",
+      items: [],
+    },
+    "todo": {
+      title: "Todo",
+      items: [],
+    },
+    "in-progress": {
+      title: "In Progress",
+      items: [],
+    },
+    "done": {
+      title: "Completed",
+      items: [],
+    }
+  })
+
+ 
+  
   const handleTaskName = (taskName)=>{
       setTaskName(taskName.target.value);
   }
@@ -33,28 +49,50 @@ function App() {
 const handleComment =(comment)=>{
     setComment(comment.target.value);
 }
-  const save= () =>{
 
-  };
-  const [text, setText] = useState("")
-  const [state, setState] = useState({
-    "todo": {
-      title: "Todo",
-      items: []
-    },
-    "in-progress": {
-      title: "In Progress",
-      items: []
-    },
-    "done": {
-      title: "Completed",
-      items: []
+// useEffect(() => {
+//     // var UserDate = document.getElementById("userdate").value;
+//     // var ToDate = new Date();
+      
+//     // if (new Date(UserDate).getTime() <= ToDate.getTime()) {
+//     //     alert("The Date must be Bigger or Equal to today date");
+//     //     return false;
+//     // }
+//     // return true;
+//     var timerID = setInterval( () =>     setDate(new Date()), 1000 );
+//     console.log(date);
+//   return function cleanup() {
+//       clearInterval(timerID);
+//     };
+  
+// }, );
+
+useEffect(()=>{
+  let total = 0;
+  let values = _.map(state, (data,key)=>{
+    let currCount = data.items.length;
+    total+=currCount;
+    return (currCount);
+  });
+  let percentages = values.map((v)=>{
+    if(total!=0)
+    {
+      return v/total;
     }
-  })
+    else{
+      return v;
+    }
+  });
+  console.log(percentages);
+  setPercents(percentages);
+  console.log(percentages);
 
-  const handleDragEnd = ({destination, source}) => {
-    console.log(destination, source);
-    if (!destination) {
+},[state]);
+
+
+
+ const handleDragEnd = ({destination, source}) => {
+  if (!destination) {
       return
     }
 
@@ -102,23 +140,31 @@ const handleComment =(comment)=>{
   }
 
   return (
+    <>
+       
+      <Input className="App" 
+      handleTaskName={handleTaskName} handleDueDate={handleDueDate} handleAssignedTo={handleAssignedTo} handleComment={handleComment} 
+      taskName={taskName} dueDate={dueDate} assignedTo={assignedTo} comment={comment}
+      save={addItem}/>
+      <br/>
     <div className="App">
-      <div>
-        <input type="text" value={text} onChange={(e) => setText(e.target.value)}/>
-        <button onClick={addItem}>Add</button>
-      </div>
-      <Input handleTaskName={handleTaskName} handleDueDate={handleDueDate} handleAssignedTo={handleAssignedTo} handleComment={handleComment} save={addItem}></Input>
-      <DragDropContext onDragEnd={handleDragEnd}>
+   
+      
+      <DragDropContext className="ddcontext" onDragEnd={handleDragEnd}>
         {_.map(state, (data, key) => {
           return(
             <div key={key} className={"column"}>
               <h3>{data.title}</h3>
-              <ToDoDroppable droppableId={key} data={data}></ToDoDroppable>
+              <ToDoDroppable key={key} droppableId={key} data={data}></ToDoDroppable>
             </div>
           )
         })}
       </DragDropContext>
+      <div className="hello">
+        {percents}
+              </div>
     </div>
+    </>
   );
 }
 

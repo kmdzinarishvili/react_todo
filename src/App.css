@@ -12,6 +12,13 @@
   width: 30%;
 }
 
+.input{
+  width: 25%;
+
+}
+.save-btn{
+  width:100%;
+}
 .droppable-col {
   width: 100%;
   background-color: gray;

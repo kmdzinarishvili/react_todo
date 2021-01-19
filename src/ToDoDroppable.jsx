@@ -1,11 +1,11 @@
-import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
+import {Droppable} from "react-beautiful-dnd";
 import ToDoDraggable from "./ToDoDraggable";
 
 
 const ToDoDroppable = ({droppableId, data}) =>{
 
 
-return (<Droppable droppableId={droppableId}>
+return (<Droppable key={droppableId} droppableId={droppableId}>
                 {(provided) => {
                   return(
                     <div
@@ -15,7 +15,7 @@ return (<Droppable droppableId={droppableId}>
                     >
                       {data.items.map((el, index) => {
                         return(
-                         <ToDoDraggable el = {el} index ={index}></ToDoDraggable>
+                         <ToDoDraggable key={index} el = {el} index ={index}></ToDoDraggable>
                         )
                       })}
                       {provided.placeholder}
