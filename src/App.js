@@ -15,6 +15,7 @@ function App() {
   const [percents, setPercents] = useState(
 [0,0,0,0]
   );
+  const order = ["backlog","todo", "in progress", "done"]
 
   const [state, setState] = useState({
     "backlog": {
@@ -160,9 +161,14 @@ useEffect(()=>{
           )
         })}
       </DragDropContext>
-      <div className="hello">
-        {percents}
-              </div>
+     
+    </div>
+    <div className="progress-bar">
+      
+        {percents.map((value, index)=>{
+        return <div key={index}><h3 >{order[index]}: {value*100}% <div className="progressBar" style={{width:value*100+"%"}}></div></h3></div>
+        }
+        )}
     </div>
     </>
   );
